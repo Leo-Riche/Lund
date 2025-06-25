@@ -3,6 +3,13 @@ body {
     overflow: hidden;
 }
 
+.app {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
 .canvas {
     width: 70vh;
     height: 70vh;
