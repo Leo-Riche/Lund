@@ -1,0 +1,11 @@
+body {
+    height: 100vh;
+    overflow: hidden;
+}
+
+.canvas {
+    width: 70vh;
+    height: 70vh;
+
+    border: solid 1px rgb(200, 200, 200);
+}
