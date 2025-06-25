@@ -94,13 +94,9 @@ function drawDaisy(ctx, x, y, size, tilt = 0) {
     ctx.rotate(tilt);
     ctx.beginPath();
     ctx.ellipse(0, 0, size * 0.28, size * 0.19, 0, 0, 2 * Math.PI);
-    ctx.fillStyle = "#d6c97a"; // jaune doux/grisé
-    // Suppression du glow :
-    // ctx.shadowColor = "#b3a14a";
-    // ctx.shadowBlur = 7;
+    ctx.fillStyle = "#d6c97a";
     ctx.globalAlpha = 0.96;
     ctx.fill();
-    // ctx.shadowBlur = 0;
     ctx.globalAlpha = 1;
     ctx.restore();
 }
