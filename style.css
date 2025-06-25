@@ -15,4 +15,15 @@ body {
     height: 70vh;
 
     border: solid 1px rgb(200, 200, 200);
+    position: relative;
+}
+
+#gif {
+    height: 200px;
+    position: absolute;
+    left: 45%;
+    top: 60%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    pointer-events: none; /* Pour ne pas bloquer les clics sur le canvas */
 }
