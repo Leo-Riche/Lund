@@ -52,10 +52,7 @@ function drawPetalDaisy(ctx, x, y, length, width, angle, color, alpha = 1) {
     );
     ctx.closePath();
     ctx.fillStyle = color;
-    ctx.shadowColor = "#eaeaea";
-    ctx.shadowBlur = 4;
     ctx.fill();
-    ctx.shadowBlur = 0;
     ctx.globalAlpha = 1;
     ctx.restore();
 }
@@ -67,8 +64,8 @@ function drawPetalDaisy(ctx, x, y, length, width, angle, color, alpha = 1) {
 function drawDaisy(ctx, x, y, size, tilt = 0) {
     // Pétales
     const petalCount = 16 + Math.floor(Math.random() * 4);
-    // Augmente le nombre de pétales manquants : 5 à 9 pétales manquants
-    const missingPetals = 5 + Math.floor(Math.random() * 5); // 5 à 9 pétales manquants
+    // Augmente le nombre de pétales manquants : 8 à 13 pétales manquants
+    const missingPetals = 8 + Math.floor(Math.random() * 6); // 8 à 13 pétales manquants
     // Génère un set d'indices de pétales à ne pas dessiner
     const missingIndices = new Set();
     while (missingIndices.size < missingPetals) {
@@ -98,11 +95,12 @@ function drawDaisy(ctx, x, y, size, tilt = 0) {
     ctx.beginPath();
     ctx.ellipse(0, 0, size * 0.28, size * 0.19, 0, 0, 2 * Math.PI);
     ctx.fillStyle = "#d6c97a"; // jaune doux/grisé
-    ctx.shadowColor = "#b3a14a";
-    ctx.shadowBlur = 7;
+    // Suppression du glow :
+    // ctx.shadowColor = "#b3a14a";
+    // ctx.shadowBlur = 7;
     ctx.globalAlpha = 0.96;
     ctx.fill();
-    ctx.shadowBlur = 0;
+    // ctx.shadowBlur = 0;
     ctx.globalAlpha = 1;
     ctx.restore();
 }
@@ -129,10 +127,11 @@ function drawDaisyStem(ctx, x, yTop, yBottom, thickness = 4, angle = 0, flowerSi
     );
     ctx.lineWidth = thickness;
     ctx.strokeStyle = "#6b8f6b"; // vert doux/grisé
-    ctx.shadowColor = "#3d4d3d";
-    ctx.shadowBlur = 5;
+    // Suppression du glow :
+    // ctx.shadowColor = "#3d4d3d";
+    // ctx.shadowBlur = 5;
     ctx.stroke();
-    ctx.shadowBlur = 0;
+    // ctx.shadowBlur = 0;
     ctx.restore();
 }
 
