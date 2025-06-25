@@ -88,11 +88,10 @@ function drawDaisy(ctx, x, y, size, tilt = 0) {
             petalLength * (0.93 + Math.random() * 0.13),
             petalWidth * (0.9 + Math.random() * 0.2),
             angle,
-            "#f3f3fa", // blanc-gris très doux
+            "#f3f3fa",
             alpha
         );
     }
-    // Cœur jaune pâle
     ctx.save();
     ctx.translate(x, y);
     ctx.rotate(tilt);
@@ -110,15 +109,22 @@ function drawDaisy(ctx, x, y, size, tilt = 0) {
 
 /**
  * Dessine la tige de la marguerite
+ * Relie précisément le centre de la fleur (coeur jaune) à la bordure du canvas tout en bas.
  */
-function drawDaisyStem(ctx, x, yTop, yBottom, thickness = 4, angle = 0) { // réduit l'épaisseur par défaut
+function drawDaisyStem(ctx, x, yTop, yBottom, thickness = 4, angle = 0, flowerSize = 0, tilt = 0) {
     ctx.save();
     ctx.beginPath();
-    ctx.moveTo(x, yTop);
+    // Calcul du point de départ (centre du coeur jaune, base de l'ellipse)
+    // Le coeur jaune est une ellipse de rayon vertical size*0.19, donc on part de yTop + size*0.19 (ajusté pour le tilt)
+    const ellipseOffset = flowerSize * 0.19;
+    // Décale le point de départ selon le tilt pour que la tige parte bien du bas du coeur
+    const dx = Math.sin(tilt) * ellipseOffset;
+    const dy = Math.cos(tilt) * ellipseOffset;
+    ctx.moveTo(x + dx, yTop + dy);
     // Légère courbure
     ctx.bezierCurveTo(
-        x + Math.sin(angle) * 12, yTop + (yBottom - yTop) * 0.33, // réduit la courbure
-        x - Math.sin(angle) * 12, yTop + (yBottom - yTop) * 0.66,
+        x + dx + Math.sin(angle) * 12, yTop + dy + (yBottom - (yTop + dy)) * 0.33,
+        x + dx - Math.sin(angle) * 12, yTop + dy + (yBottom - (yTop + dy)) * 0.66,
         x, yBottom
     );
     ctx.lineWidth = thickness;
@@ -130,21 +136,43 @@ function drawDaisyStem(ctx, x, yTop, yBottom, thickness = 4, angle = 0) { // ré
     ctx.restore();
 }
 
-// Générer plusieurs marguerites en bas du canvas
+// Générer plusieurs marguerites en bas du canvas avec espacement aléatoire
 const daisyCount = 7;
+// On commence à partir du tiers gauche du canvas
+const leftStart = width / 3;
 const margin = width * 0.07;
-const minSize = Math.min(width, height) * 0.045;
-const maxSize = Math.min(width, height) * 0.07;
-// abaisse les fleurs
+const availableWidth = width - leftStart - margin;
+// Diminue la longueur des pétales en réduisant minSize et maxSize
+const minSize = Math.min(width, height) * 0.032;
+const maxSize = Math.min(width, height) * 0.052;
 const baseY = height * 0.94;
+
+// Génère des espacements aléatoires
+let positions = [];
+let total = 0;
 for (let i = 0; i < daisyCount; i++) {
-    const t = i / (daisyCount - 1);
-    const daisyX = margin + t * (width - 2 * margin);
+    // Espacement aléatoire entre 1 et 2 (peut ajuster selon l'effet désiré)
+    const space = 1 + Math.random();
+    positions.push(space);
+    total += space;
+}
+// Calcule la position x de chaque fleur en fonction des espacements
+let daisyXs = [];
+let acc = 0;
+for (let i = 0; i < daisyCount; i++) {
+    acc += positions[i];
+    // Normalise pour que les fleurs soient réparties entre leftStart+margin et width-margin
+    const t = acc / total;
+    daisyXs.push(leftStart + margin + t * (availableWidth - margin));
+}
+
+for (let i = 0; i < daisyCount; i++) {
+    const daisyX = daisyXs[i];
     const daisySize = minSize + Math.random() * (maxSize - minSize);
     const daisyY = baseY + (Math.random() - 0.5) * 18;
     const tilt = -0.5 + Math.random() * 1.2;
-    drawDaisyStem(context, daisyX, daisyY + daisySize * 0.4, height - 10, Math.max(daisySize * 0.06, 2.5), tilt); // réduit l'épaisseur
-    drawDaisy(context, daisyX, daisyY, daisySize, tilt);
+    drawDaisyStem(context, daisyX, daisyY, height, Math.max(daisySize * 0.06, 2.5), tilt, daisySize, tilt);
+    drawDaisy(context, daisyX, daisyY, daisySize, tilt, 6); // max 6 pétales
 }
 /*
  * Rétrécit les marguerites en réduisant minSize et maxSize puis redessine la scène.
@@ -169,17 +197,31 @@ for (let i = 0; i < starCount; i++) {
 context.globalAlpha = 1;
 
 // Nouvelles tailles plus petites
-const smallMinSize = Math.min(width, height) * 0.025;
-const smallMaxSize = Math.min(width, height) * 0.04;
+const smallMinSize = Math.min(width, height) * 0.018;
+const smallMaxSize = Math.min(width, height) * 0.028;
 
-// Redessine les marguerites plus petites
+// Génère de nouveaux espacements aléatoires pour les petites marguerites
+positions = [];
+total = 0;
 for (let i = 0; i < daisyCount; i++) {
-    const t = i / (daisyCount - 1);
-    const daisyX = margin + t * (width - 2 * margin);
+    const space = 1 + Math.random();
+    positions.push(space);
+    total += space;
+}
+daisyXs = [];
+acc = 0;
+for (let i = 0; i < daisyCount; i++) {
+    acc += positions[i];
+    const t = acc / total;
+    daisyXs.push(leftStart + margin + t * (availableWidth - margin));
+}
+
+// Redessine les marguerites plus petites avec espacement aléatoire
+for (let i = 0; i < daisyCount; i++) {
+    const daisyX = daisyXs[i];
     const daisySize = smallMinSize + Math.random() * (smallMaxSize - smallMinSize);
-    // abaisse les fleurs
     const daisyY = baseY + (Math.random() - 0.5) * 18;
     const tilt = -0.5 + Math.random() * 1.2;
-    drawDaisyStem(context, daisyX, daisyY + daisySize * 0.4, height - 10, Math.max(daisySize * 0.06, 2.5), tilt); // réduit l'épaisseur
-    drawDaisy(context, daisyX, daisyY, daisySize, tilt);
+    drawDaisyStem(context, daisyX, daisyY, height, Math.max(daisySize * 0.06, 2.5), tilt, daisySize, tilt);
+    drawDaisy(context, daisyX, daisyY, daisySize, tilt, 6);
 }

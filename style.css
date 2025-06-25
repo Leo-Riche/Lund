@@ -21,8 +21,8 @@ body {
 #gif {
     height: 200px;
     position: absolute;
-    left: 45%;
-    top: 60%;
+    left: 40%;
+    top: 73.5%;
     transform: translate(-50%, -50%);
     z-index: 5;
     pointer-events: none; /* Pour ne pas bloquer les clics sur le canvas */
