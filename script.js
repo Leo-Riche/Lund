@@ -342,8 +342,8 @@ for (let i = 0; i < 15; i++) {
   context.stroke();
 }
 
-for (let i = 0; i < 70; i++) {
-  const step = i / 70;
+for (let i = 0; i < 110; i++) {
+  const step = i / 110;
   const startPoint = getBezierPoint(
     step,
     bezierData.p1,
@@ -355,10 +355,10 @@ for (let i = 0; i < 70; i++) {
   context.beginPath();
   context.moveTo(startPoint.x, startPoint.y);
   context.bezierCurveTo(
-    startPoint.x,
-    startPoint.y * i,
-    startPoint.x,
-    startPoint.y * i,
+    startPoint.x  * Math.random()*30,
+    startPoint.y * i ,
+    startPoint.x ,
+    startPoint.y * i ,
     i * 100,
     height + 10
   );
