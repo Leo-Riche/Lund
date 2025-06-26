@@ -414,4 +414,4 @@ function getBezierPoint(t, p0, p1, p2, p3) {
     Math.pow(t, 3) * p3.y;
 
   return { x, y };
-}
+};
