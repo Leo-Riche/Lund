@@ -258,50 +258,47 @@ function getBezierPoint(t, p0, p1, p2, p3) {
  * Dessine le mot "Reckless" en haut du canvas avec la police Fraktur.
  */
 function drawRecklessText() {
-  // Attendre que la police soit chargée
   document.fonts.ready.then(() => {
     context.save();
-    context.font = "bold 90px 'UnifrakturMaguntia'"; // Ajuste la taille selon tes besoins
-    context.fillStyle = "#F0F0F0"; // Blanc/gris clair
+    // Dessine le titre principal
+    context.font = "bold 100px 'UnifrakturMaguntia'";
+    context.fillStyle = "#F0F0F0";
     context.textAlign = "center";
     context.textBaseline = "middle";
-
-    const text = "Reckless";
-    const textX = width / 2;
-    // Positionne le texte en haut du canvas, par exemple 15% de la hauteur
-    const textY = height * 0.15;
-
-    // Ajoute une ombre pour un effet de "glow" léger
     context.shadowColor = "rgba(255, 255, 255, 0.7)";
-    context.shadowBlur = 15; // Intensité du glow
-
+    context.shadowBlur = 15;
+    const text = "Lost and Hollow";
+    const textX = width / 2;
+    const textY = height * 0.15;
     context.fillText(text, textX, textY);
 
-    context.shadowBlur = 0; // Réinitialise l'ombre pour ne pas affecter les autres éléments
+    // Dessine le nom de l'artiste "Lund" en dessous du titre
+    context.font = "bold 50px 'UnifrakturMaguntia'";
+    context.shadowColor = "rgba(255, 255, 255, 0.5)";
+    context.shadowBlur = 10;
+    const artistText = "Lund";
+    const artistX = width / 2;
+    const artistY = height * 0.25; // positionné sous le titre
+    context.fillText(artistText, artistX, artistY);
+
+    context.shadowBlur = 0;
     context.restore();
   });
 }
 
-// --- Ordre de dessin de la scène ---
-
-// 1. Dessine le fond et les étoiles
 drawBackgroundAndStars();
 
-// 2. Dessine la première série de marguerites (plus grandes)
 const minSizeInitial = Math.min(width, height) * 0.032;
 const maxSizeInitial = Math.min(width, height) * 0.052;
 drawDaisiesBatch(minSizeInitial, maxSizeInitial);
 
-// 3. Efface tout et redessine le fond et les étoiles pour la deuxième série (comme dans ton code original)
 context.clearRect(0, 0, width, height);
 drawBackgroundAndStars();
 
-// 4. Dessine la deuxième série de marguerites (plus petites)
 const smallMinSize = Math.min(width, height) * 0.018;
 const smallMaxSize = Math.min(width, height) * 0.028;
 drawDaisiesBatch(smallMinSize, smallMaxSize);
 
-// 5. Dessine les courbes de Bézier
 context.strokeStyle = "white";
 context.lineWidth = 1;
 
@@ -317,7 +314,7 @@ for (let i = 0; i < 15; i++) {
     width + 10,
     height - i * 20
   );
-  if (i === 14) { // Utilise === pour la comparaison stricte
+  if (i === 14) {
     bezierData = {
       p1: { x: -10, y: height - i * 10 },
       p2: { x: width / 2, y: height - (i + 10) },
@@ -341,7 +338,7 @@ for (let i = 0; i < 110; i++) {
   context.beginPath();
   context.moveTo(startPoint.x, startPoint.y);
   context.bezierCurveTo(
-    startPoint.x * Math.random() * 30, // Ces valeurs semblent très aléatoires et peuvent donner des résultats inattendus
+    startPoint.x * Math.random() * 30,
     startPoint.y * i,
     startPoint.x,
     startPoint.y * i,
@@ -351,5 +348,4 @@ for (let i = 0; i < 110; i++) {
   context.stroke();
 }
 
-// 6. Dessine le titre "Reckless"
 drawRecklessText();
