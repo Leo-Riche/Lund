@@ -1,16 +1,15 @@
 body {
   height: 100vh;
-  overflow: hidden;
 }
 
-.app {
+.app, .appCover {
   position: relative;
   width: 70vh;
   height: 70vh;
   margin: auto;
 }
 
-.canvas {
+.canvas, .canvasCover {
   position: absolute;
   top: 0;
   left: 0;
