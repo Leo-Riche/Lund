@@ -1,57 +1,58 @@
 body {
-    height: 100vh;
-    overflow: hidden;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .app {
-    position: relative;
-    width: 70vh;
-    height: 70vh;
-    margin: auto;
+  position: relative;
+  width: 70vh;
+  height: 70vh;
+  margin: auto;
 }
 
 .canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 70vh;
-    height: 70vh;
-    z-index: 2;
-    border: solid 1px rgb(200, 200, 200);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 70vh;
+  height: 70vh;
+  z-index: 2;
+  border: solid 1px rgb(200, 200, 200);
 }
 
 #vinyle {
-    width: 63vh;
-    height: 63vh;
-    object-fit: cover;
-    z-index: 1;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    transition: left 0.3s ease;
-    animation: spin 8s linear infinite;
+  width: 63vh;
+  height: 63vh;
+  object-fit: cover;
+  z-index: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: left 0.3s ease;
+  animation: spin 8s linear infinite;
 }
 
 .canvas:hover + #vinyle {
-    left: calc(50% + 35vh);
+  left: calc(50% + 35vh);
 }
 
 @keyframes spin {
-    from {
-        transform: translate(-50%, -50%) rotate(0deg);
-    }
-    to {
-        transform: translate(-50%, -50%) rotate(360deg);
-    }
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
 }
 
 #gif {
-    height: 200px;
-    position: absolute;
-    left: 40%;
-    top: 73.5%;
-    transform: translate(-50%, -50%);
-    z-index: 5;
-    pointer-events: none; /* Pour ne pas bloquer les clics sur le canvas */
+  height: 200px;
+  position: absolute;
+  left: 0; /* Aligne à droite */
+  bottom: 0; /* Aligne en bas */
+  margin: 10px; /* Optionnel : petit espace du bord */
+  z-index: 5;
+  pointer-events: none;
+  transform: none; /* Enlève le translate */
 }
