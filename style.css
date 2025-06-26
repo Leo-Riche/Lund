@@ -33,7 +33,7 @@ body {
   animation: spin 8s linear infinite;
 }
 
-.canvas:hover + #vinyle {
+.app:hover #vinyle {
   left: calc(50% + 35vh);
 }
 
