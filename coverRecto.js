@@ -273,12 +273,12 @@ function drawRecklessText() {
     context.fillText(text, textX, textY);
 
     // Dessine le nom de l'artiste "Lund" en dessous du titre
-    context.font = "bold 50px 'UnifrakturMaguntia'";
+    context.font = "bold 70px 'UnifrakturMaguntia'";
     context.shadowColor = "rgba(255, 255, 255, 0.5)";
     context.shadowBlur = 10;
     const artistText = "Lund";
     const artistX = width / 2;
-    const artistY = height * 0.25; // positionné sous le titre
+    const artistY = height * 0.25;
     context.fillText(artistText, artistX, artistY);
 
     context.shadowBlur = 0;
