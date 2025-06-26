@@ -92,43 +92,7 @@ function drawPetalDaisy(ctx, x, y, length, width, angle, color, alpha = 1) {
  * Certains pétales peuvent manquer aléatoirement.
  */
 function drawDaisy(ctx, x, y, size, tilt = 0) {
-    // Pétales
-    const petalCount = 16 + Math.floor(Math.random() * 4);
-    // Augmente le nombre de pétales manquants : 8 à 13 pétales manquants
-    const missingPetals = 8 + Math.floor(Math.random() * 6); // 8 à 13 pétales manquants
-    // Génère un set d'indices de pétales à ne pas dessiner
-    const missingIndices = new Set();
-    while (missingIndices.size < missingPetals) {
-        missingIndices.add(Math.floor(Math.random() * petalCount));
-    }
-    const petalLength = size * (1.1 + Math.random() * 0.13);
-    const petalWidth = size * 0.22;
-    for (let i = 0; i < petalCount; i++) {
-        if (missingIndices.has(i)) continue; // On saute ce pétale
-        // Légère ondulation et variation d'angle
-        const angle = tilt + (i * 2 * Math.PI) / petalCount + Math.sin(i) * 0.08 + (Math.random() - 0.5) * 0.08;
-        const alpha = 0.82 + Math.random() * 0.18;
-        drawPetalDaisy(
-            ctx,
-            x,
-            y,
-            petalLength * (0.93 + Math.random() * 0.13),
-            petalWidth * (0.9 + Math.random() * 0.2),
-            angle,
-            "#f3f3fa",
-            alpha
-        );
-    }
-    ctx.save();
-    ctx.translate(x, y);
-    ctx.rotate(tilt);
-    ctx.beginPath();
-    ctx.ellipse(0, 0, size * 0.28, size * 0.19, 0, 0, 2 * Math.PI);
-    ctx.fillStyle = "#d6c97a";
-    ctx.globalAlpha = 0.96;
-    ctx.fill();
-    ctx.globalAlpha = 1;
-    ctx.restore();
+   
   // Pétales
   const petalCount = 16 + Math.floor(Math.random() * 4);
   // Augmente le nombre de pétales manquants : 5 à 9 pétales manquants
@@ -202,7 +166,8 @@ function drawDaisyStem(ctx, x, yTop, yBottom, thickness = 4, angle = 0, flowerSi
     // ctx.shadowBlur = 5;
     ctx.stroke();
     // ctx.shadowBlur = 0;
-    ctx.restore();
+    ctx.restore();7
+  }
 function drawDaisyStem(
   ctx,
   x,
