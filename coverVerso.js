@@ -70,4 +70,4 @@ function drawTexts(texts) {
 }
 
 // Exemple d'utilisation :
-drawTexts(["Lost adn Hollow", "Broken", "F*ck Love", "Skin & Bones", "Reckless", "Low", "Issues"]);
+drawTexts(["Lost and Hollow", "Broken", "F*ck Love", "Skin & Bones", "Reckless", "Low", "Issues"]);
