@@ -269,11 +269,18 @@ const smallMinSize = Math.min(width, height) * 0.018;
 const smallMaxSize = Math.min(width, height) * 0.028;
 drawDaisiesBatch(smallMinSize, smallMaxSize);
 
-context.strokeStyle = "red";
-context.lineWidth = 1;
+// ...existing code...
+
+context.strokeStyle = "white";
+context.lineWidth = 3;
 let bezierData = {};
 const bezierCount = 20;
 const exponentBezier = 2;
+
+// Utilisation de globalCompositeOperation pour les lignes
+context.save();
+context.globalCompositeOperation = "overlay"; // ou "screen", "overlay", etc. selon l'effet désiré
+
 for (let i = 0; i < bezierCount; i++) {
   // Calcul exponentiel pour la progression
   const t = Math.pow(i / (bezierCount - 1), exponentBezier);
@@ -285,7 +292,7 @@ for (let i = 0; i < bezierCount; i++) {
   const x4 = width + t * (bezierCount - 1) * 50;
   const y4 = height - t * (bezierCount - 1) * 75;
 
-  context.lineWidth = 1 - i / 25;
+  // context.lineWidth = 1 - i / 35;
   context.beginPath();
   context.moveTo(-10, y);
   context.bezierCurveTo(width / 1.25, y2, width / 2, y3, x4, y4);
@@ -300,6 +307,7 @@ for (let i = 0; i < bezierCount; i++) {
   context.stroke();
 }
 
+// ...existing code...
 const exponent = 5;
 
 for (let i = 2; i < 50; i++) {
@@ -311,7 +319,7 @@ for (let i = 2; i < 50; i++) {
     bezierData.p3,
     bezierData.p4
   );
-  context.lineWidth = 1 - i / 75;
+  // context.lineWidth = 1 - i / 75;
   context.beginPath();
   context.moveTo(startPoint.x, startPoint.y);
   context.bezierCurveTo(
@@ -325,6 +333,8 @@ for (let i = 2; i < 50; i++) {
   
   context.stroke();
 }
+context.restore();
+
 
 const backgroundImage = new Image();
 backgroundImage.src = canvas.toDataURL();
