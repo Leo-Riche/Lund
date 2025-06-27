@@ -8,7 +8,7 @@ canvas.height = height;
 
 const backgroundGradient = context.createLinearGradient(0, 0, 0, height);
 backgroundGradient.addColorStop(0, "#2a0010");
-backgroundGradient.addColorStop(1, "#000033");
+backgroundGradient.addColorStop(1, "#000015");
 
 /**
  * Dessine le fond dégradé et les étoiles.
@@ -335,6 +335,10 @@ for (let i = 2; i < 50; i++) {
 }
 context.restore();
 
+
+const smallMinSize = Math.min(width, height) * 0.018;
+const smallMaxSize = Math.min(width, height) * 0.028;
+drawDaisiesBatch(smallMinSize, smallMaxSize);
 
 const backgroundImage = new Image();
 backgroundImage.src = canvas.toDataURL();

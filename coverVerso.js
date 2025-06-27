@@ -12,8 +12,8 @@ const backgroundGradientCover = contextCover.createLinearGradient(
   0,
   heightCover
 );
-backgroundGradientCover.addColorStop(0, "#000010");
-backgroundGradientCover.addColorStop(1, "#000033");
+backgroundGradientCover.addColorStop(0, "#2a0010");
+backgroundGradientCover.addColorStop(1, "#000015");
 
 /**
  * Dessine le fond dégradé et les étoiles.
