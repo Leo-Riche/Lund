@@ -1,16 +1,16 @@
 const canvasCover = document.getElementById("canvasCover");
-const contectCover = canvasCover.getContext("2d");
+const contextCover = canvasCover.getContext("2d");
 
 const widthCover = canvasCover.clientWidth * 2;
 const heightCover = canvasCover.clientHeight * 2;
 canvasCover.width = widthCover;
-canvasCover.height = height;
+canvasCover.height = heightCover;
 
-const backgroundGradientCover = contectCover.createLinearGradient(
+const backgroundGradientCover = contextCover.createLinearGradient(
   0,
   0,
   0,
-  height
+  heightCover
 );
 backgroundGradientCover.addColorStop(0, "#000010");
 backgroundGradientCover.addColorStop(1, "#000033");
@@ -19,8 +19,8 @@ backgroundGradientCover.addColorStop(1, "#000033");
  * Dessine le fond dégradé et les étoiles.
  */
 function drawBackgroundAndStars() {
-  contectCover.fillStyle = backgroundGradientCover;
-  contectCover.fillRect(0, 0, widthCover, heightCover);
+  contextCover.fillStyle = backgroundGradientCover;
+  contextCover.fillRect(0, 0, widthCover, heightCover);
 
   // Génération des étoiles
   const starCount = 500;
@@ -28,15 +28,15 @@ function drawBackgroundAndStars() {
     const x = Math.random() * widthCover;
     const y = Math.random() * heightCover;
     const radius = Math.random() * 1.2 + 0.3;
-    contectCover.beginPath();
-    contectCover.arc(x, y, radius, 0, 2 * Math.PI);
-    contectCover.fillStyle = "white";
-    contectCover.globalAlpha = 1;
-    contectCover.fill();
+    contextCover.beginPath();
+    contextCover.arc(x, y, radius, 0, 2 * Math.PI);
+    contextCover.fillStyle = "white";
+    contextCover.globalAlpha = 1;
+    contextCover.fill();
   }
 }
 
-drawBackgroundAndStars();
+// drawBackgroundAndStars(); 
 
 /**
  * Dessine un pétale de marguerite stylisé avec ombre.
@@ -187,7 +187,7 @@ function drawDaisiesBatch(minSize, maxSize) {
     const daisyY = baseY + (Math.random() - 0.5) * 18;
     const tilt = -0.5 + Math.random() * 1.2;
     drawDaisyStem(
-      contectCover,
+      contextCover,
       daisyX,
       daisyY,
       heightCover,
@@ -195,7 +195,7 @@ function drawDaisiesBatch(minSize, maxSize) {
       daisySize,
       tilt
     );
-    drawDaisy(contectCover, daisyX, daisyY, daisySize, tilt);
+    drawDaisy(contextCover, daisyX, daisyY, daisySize, tilt);
   }
 }
 
@@ -203,34 +203,97 @@ drawDaisiesBatch(20, 30);
 
 function drawTexts(texts) {
   document.fonts.ready.then(() => {
-    contectCover.save();
-    contectCover.textAlign = "center";
-    contectCover.textBaseline = "middle";
+    contextCover.save();
+    contextCover.textAlign = "center";
+    contextCover.textBaseline = "middle";
     let baseY = heightCover * 0.15;
     const lineHeight = 100; // espace entre les lignes
 
     texts.forEach((text, i) => {
       // Style différent pour la première ligne (titre)
       if (i === 0) {
-        contectCover.font = "bold 100px 'UnifrakturMaguntia'";
-        contectCover.fillStyle = "#F0F0F0";
-        contectCover.shadowColor = "rgba(255, 255, 255, 0.7)";
-        contectCover.shadowBlur = 15;
+        contextCover.font = "bold 100px 'UnifrakturMaguntia'";
+        contextCover.fillStyle = "#F0F0F0";
+        contextCover.shadowColor = "rgba(255, 255, 255, 0.7)";
+        contextCover.shadowBlur = 15;
       } else {
-        contectCover.font = "bold 50px 'UnifrakturMaguntia'";
-        contectCover.fillStyle = "#F0F0F0";
-        contectCover.shadowColor = "rgba(255, 255, 255, 0.5)";
-        contectCover.shadowBlur = 10;
+        contextCover.font = "bold 50px 'UnifrakturMaguntia'";
+        contextCover.fillStyle = "#F0F0F0";
+        contextCover.shadowColor = "rgba(255, 255, 255, 0.5)";
+        contextCover.shadowBlur = 10;
       }
       const textX = widthCover / 2;
       const textY = baseY + i * lineHeight;
-      contectCover.fillText(text, textX, textY);
+      contextCover.fillText(text, textX, textY);
     });
 
-    contectCover.shadowBlur = 0;
-    contectCover.restore();
+    contextCover.shadowBlur = 0;
+    contextCover.restore();
   });
 }
 
-// Exemple d'utilisation :
-drawTexts(["Lost and Hollow", "Broken", "F*ck Love", "Skin & Bones", "Reckless", "Low", "Issues"]);
+function drawStaticBackground() {
+  drawBackgroundAndStars();
+  drawDaisiesBatch(20, 30);
+}
+
+drawStaticBackground();
+
+const backgroundImageVerso = new Image();
+backgroundImageVerso.src = canvasCover.toDataURL();
+
+const shootingStarVerso = {
+  x: widthCover * 0.8,
+  y: heightCover * 0.1,
+  length: 100,
+  angle: -Math.PI / 4,
+  progress: 0,
+  speed: 0.02
+};
+
+function drawShootingStar(ctx, star) {
+  const startX = star.x + Math.cos(star.angle) * star.length * star.progress;
+  const startY = star.y + Math.sin(star.angle) * star.length * star.progress;
+  const endX = startX + Math.cos(star.angle) * star.length * 0.3;
+  const endY = startY + Math.sin(star.angle) * star.length * 0.3;
+
+  const grad = ctx.createLinearGradient(startX, startY, endX, endY);
+  grad.addColorStop(0, "rgba(255,255,255,0.85)");
+  grad.addColorStop(0.5, "rgba(255,255,255,0.25)");
+  grad.addColorStop(1, "rgba(255,255,255,0)");
+
+  ctx.save();
+  ctx.globalAlpha = 0.8;
+  ctx.strokeStyle = grad;
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(startX, startY);
+  ctx.lineTo(endX, endY);
+  ctx.stroke();
+  ctx.restore();
+}
+
+function animate() {
+  contextCover.clearRect(0, 0, widthCover, heightCover);
+  
+  contextCover.drawImage(backgroundImageVerso, 0, 0, widthCover, heightCover);
+
+  drawShootingStar(contextCover, shootingStarVerso);
+
+  shootingStarVerso.progress -= shootingStarVerso.speed;
+  if (shootingStarVerso.progress < 0) {
+    shootingStarVerso.progress = 1;
+    shootingStarVerso.x = Math.random() * widthCover * 0.8 + widthCover * 0.1;
+    shootingStarVerso.y = Math.random() * heightCover * 0.3 + heightCover * 0.05;
+    shootingStarVerso.length = 80 + Math.random() * 60;
+    shootingStarVerso.angle = (-Math.PI / 4) + (Math.random() - 0.5) * 0.3;
+  }
+
+  drawTexts(["Lost and Hollow", "Broken", "F*ck Love", "Skin & Bones", "Reckless", "Low", "Issues"]);
+
+  requestAnimationFrame(animate);
+}
+
+backgroundImageVerso.onload = () => {
+  animate();
+};
