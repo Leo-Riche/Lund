@@ -30,33 +30,6 @@ function drawBackgroundAndStars() {
     context.fill();
   }
 
-  // Génération des étoiles filantes (non animées)
-  // const shootingStarCount = 7;
-  // for (let i = 0; i < shootingStarCount; i++) {
-  //   const startX = Math.random() * width * 0.8 + width * 0.1;
-  //   const startY = Math.random() * height * 0.3 + height * 0.05;
-  //   const length = 80 + Math.random() * 60;
-  //   const angle = (-Math.PI / 4) + (Math.random() - 0.5) * 0.3; // Vers le bas/droite
-  //   const endX = startX + Math.cos(angle) * length;
-  //   const endY = startY + Math.sin(angle) * length;
-
-  //   // Dégradé pour l'effet de traînée
-  //   const grad = context.createLinearGradient(startX, startY, endX, endY);
-  //   grad.addColorStop(0, "rgba(255,255,255,0.85)");
-  //   grad.addColorStop(0.5, "rgba(255,255,255,0.25)");
-  //   grad.addColorStop(1, "rgba(255,255,255,0)");
-
-  //   context.save();
-  //   context.globalAlpha = 0.7 + Math.random() * 0.3;
-  //   context.strokeStyle = grad;
-  //   context.lineWidth = 2 + Math.random() * 1.5;
-  //   context.beginPath();
-  //   context.moveTo(startX, startY);
-  //   context.lineTo(endX, endY);
-  //   context.stroke();
-  //   context.restore();
-  // }
-
   context.globalAlpha = 1;
 }
 
@@ -103,16 +76,11 @@ function drawPetalDaisy(ctx, x, y, length, width, angle, color, alpha = 1) {
 function drawDaisy(ctx, x, y, size, tilt = 0) {
   // Pétales
   const petalCount = 16 + Math.floor(Math.random() * 4);
-  const missingPetals = 5 + Math.floor(Math.random() * 5); // 5 à 9 pétales manquants
-  const missingIndices = new Set();
-  while (missingIndices.size < missingPetals) {
-    missingIndices.add(Math.floor(Math.random() * petalCount));
-  }
+  // Plus de pétales manquants
   const petalLength = size * (1.1 + Math.random() * 0.13);
   const petalWidth = size * 0.22;
 
   for (let i = 0; i < petalCount; i++) {
-    if (missingIndices.has(i)) continue; // On saute ce pétale
     // Légère ondulation et variation d'angle
     const angle =
       tilt +

@@ -75,11 +75,7 @@ function drawPetalDaisy(ctx, x, y, length, width, angle, color, alpha = 1) {
 function drawDaisy(ctx, x, y, size, tilt = 0) {
   // Pétales
   const petalCount = 16 + Math.floor(Math.random() * 4);
-  const missingPetals = 5 + Math.floor(Math.random() * 5); // 5 à 9 pétales manquants
   const missingIndices = new Set();
-  while (missingIndices.size < missingPetals) {
-    missingIndices.add(Math.floor(Math.random() * petalCount));
-  }
   const petalLength = size * (1.1 + Math.random() * 0.13);
   const petalWidth = size * 0.22;
 
