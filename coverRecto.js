@@ -269,7 +269,7 @@ const smallMinSize = Math.min(width, height) * 0.018;
 const smallMaxSize = Math.min(width, height) * 0.028;
 drawDaisiesBatch(smallMinSize, smallMaxSize);
 
-context.strokeStyle = "white";
+context.strokeStyle = "red";
 context.lineWidth = 1;
 let bezierData = {};
 const bezierCount = 20;
