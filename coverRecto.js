@@ -7,7 +7,7 @@ canvas.width = width;
 canvas.height = height;
 
 const backgroundGradient = context.createLinearGradient(0, 0, 0, height);
-backgroundGradient.addColorStop(0, "#000010");
+backgroundGradient.addColorStop(0, "#2a0010");
 backgroundGradient.addColorStop(1, "#000033");
 
 /**
