@@ -8,7 +8,7 @@ canvas.height = height;
 
 const backgroundGradient = context.createLinearGradient(0, 0, 0, height);
 backgroundGradient.addColorStop(0, "#2a0010");
-backgroundGradient.addColorStop(1, "#000015");
+backgroundGradient.addColorStop(1, "#000000");
 
 /**
  * Dessine le fond dégradé et les étoiles.
@@ -265,7 +265,7 @@ drawDaisiesBatch(minSizeInitial, maxSizeInitial);
 context.clearRect(0, 0, width, height);
 drawBackgroundAndStars();
 
-context.strokeStyle = "white";
+context.strokeStyle = "rgb(200,100,100)";
 context.lineWidth = 3;
 let bezierData = {};
 const bezierCount = 20;
@@ -273,7 +273,7 @@ const exponentBezier = 2;
 
 // Utilisation de globalCompositeOperation pour les lignes
 context.save();
-context.globalCompositeOperation = "overlay"; // ou "screen", "overlay", etc. selon l'effet désiré
+context.globalCompositeOperation = "color-dodge"; // ou "screen", "overlay", etc. selon l'effet désiré
 
 for (let i = 0; i < bezierCount; i++) {
   // Calcul exponentiel pour la progression

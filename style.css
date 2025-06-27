@@ -200,6 +200,7 @@ footer {
   z-index: 5;
   pointer-events: none;
   transform: none;
+  filter: hue-rotate(300deg) invert(1);
 }
 
 @media (max-width: 700px) {
