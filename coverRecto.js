@@ -283,8 +283,8 @@ function drawRecklessText() {
     context.shadowColor = "rgba(255, 255, 255, 0.5)";
     context.shadowBlur = 10;
     const artistText = "Lund";
-    const artistX = width / 1.5;
-    const artistY = height * 0.30;
+    const artistX = width / 2;
+    const artistY = height * 0.25;
     context.fillText(artistText, artistX, artistY);
 
     context.shadowBlur = 0;
@@ -334,9 +334,9 @@ for (let i = 0; i < bezierCount; i++) {
   context.stroke();
 }
 
-const exponent = 5; 
+const exponent = 5;
 
-for (let i = 0; i < 50; i++) {
+for (let i = 2; i < 50; i++) {
   const step = Math.pow(i / 50, exponent);
   const startPoint = getBezierPoint(
     step,
@@ -345,7 +345,7 @@ for (let i = 0; i < 50; i++) {
     bezierData.p3,
     bezierData.p4
   );
-  context.lineWidth = 1 - i/75 ;
+  context.lineWidth = 1 - i / 75;
   context.beginPath();
   context.moveTo(startPoint.x, startPoint.y);
   context.bezierCurveTo(
@@ -356,6 +356,7 @@ for (let i = 0; i < 50; i++) {
     i * 100,
     height + 10
   );
+  
   context.stroke();
 }
 
@@ -368,7 +369,7 @@ let shootingStar = {
   length: 100,
   angle: -Math.PI / 4,
   progress: 0,
-  speed: 0.02
+  speed: 0.02,
 };
 
 function drawShootingStar(ctx, star) {
@@ -399,7 +400,7 @@ function animate() {
   context.drawImage(backgroundImage, 0, 0, width, height);
 
   drawRecklessText();
-  
+
   drawShootingStar(context, shootingStar);
 
   shootingStar.progress -= shootingStar.speed;
@@ -408,7 +409,7 @@ function animate() {
     shootingStar.x = Math.random() * width * 0.8 + width * 0.1;
     shootingStar.y = Math.random() * height * 0.3 + height * 0.05;
     shootingStar.length = 80 + Math.random() * 60;
-    shootingStar.angle = (-Math.PI / 4) + (Math.random() - 0.5) * 0.3;
+    shootingStar.angle = -Math.PI / 4 + (Math.random() - 0.5) * 0.3;
   }
 
   requestAnimationFrame(animate);
