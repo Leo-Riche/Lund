@@ -192,11 +192,10 @@ footer {
 }
 
 #gif {
-  height: 200px;
+  height: 270px;
   position: absolute;
   left: 0;
   bottom: 0;
-  margin: 10px;
   z-index: 5;
   pointer-events: none;
   transform: none;

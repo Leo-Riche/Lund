@@ -281,8 +281,8 @@ function drawRecklessText() {
     context.shadowColor = "rgba(255, 255, 255, 0.5)";
     context.shadowBlur = 10;
     const artistText = "Lund";
-    const artistX = width / 2;
-    const artistY = height * 0.25;
+    const artistX = width / 1.5;
+    const artistY = height * 0.30;
     context.fillText(artistText, artistX, artistY);
 
     context.shadowBlur = 0;
@@ -304,7 +304,7 @@ drawDaisiesBatch(smallMinSize, smallMaxSize);
 context.strokeStyle = "white";
 context.lineWidth = 1;
 let bezierData = {};
-const bezierCount = 15;
+const bezierCount = 20;
 const exponentBezier = 2;
 for (let i = 0; i < bezierCount; i++) {
   // Calcul exponentiel pour la progression
@@ -317,7 +317,7 @@ for (let i = 0; i < bezierCount; i++) {
   const x4 = width + t * (bezierCount - 1) * 50;
   const y4 = height - t * (bezierCount - 1) * 75;
 
-  context.lineWidth = 1 - i / 20;
+  context.lineWidth = 1 - i / 25;
   context.beginPath();
   context.moveTo(-10, y);
   context.bezierCurveTo(width / 1.25, y2, width / 2, y3, x4, y4);
