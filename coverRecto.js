@@ -71,14 +71,20 @@ function drawPetalDaisy(ctx, x, y, length, width, angle, color, alpha = 1) {
   ctx.beginPath();
   ctx.moveTo(0, 0);
   ctx.bezierCurveTo(
-    width * 0.3, -length * 0.2,
-    width * 0.7, -length * 0.7,
-    0, -length
+    width * 0.3,
+    -length * 0.2,
+    width * 0.7,
+    -length * 0.7,
+    0,
+    -length
   );
   ctx.bezierCurveTo(
-    -width * 0.7, -length * 0.7,
-    -width * 0.3, -length * 0.2,
-    0, 0
+    -width * 0.7,
+    -length * 0.7,
+    -width * 0.3,
+    -length * 0.2,
+    0,
+    0
   );
   ctx.closePath();
   ctx.fillStyle = color;
@@ -299,32 +305,39 @@ drawDaisiesBatch(smallMinSize, smallMaxSize);
 
 context.strokeStyle = "white";
 context.lineWidth = 1;
-
 let bezierData = {};
-for (let i = 0; i < 15; i++) {
+const bezierCount = 15;
+const exponentBezier = 2;
+for (let i = 0; i < bezierCount; i++) {
+  // Calcul exponentiel pour la progression
+  const t = Math.pow(i / (bezierCount - 1), exponentBezier);
+
+  // Interpolation exponentielle des paramètres
+  const y = height - t * (bezierCount - 1) * 10;
+  const y2 = height - (t * (bezierCount - 1) + 10);
+  const y3 = height - t * (bezierCount - 1) * 100;
+  const x4 = width + t * (bezierCount - 1) * 50;
+  const y4 = height - t * (bezierCount - 1) * 75;
+
+  context.lineWidth = 1 - i / 20;
   context.beginPath();
-  context.moveTo(-10, height - i * 10);
-  context.bezierCurveTo(
-    width / 2,
-    height - (i + 10),
-    width / 2,
-    height - i * 100,
-    width + 10,
-    height - i * 20
-  );
-  if (i === 14) {
+  context.moveTo(-10, y);
+  context.bezierCurveTo(width / 1.25, y2, width / 2, y3, x4, y4);
+  if (i === bezierCount - 1) {
     bezierData = {
-      p1: { x: -10, y: height - i * 10 },
-      p2: { x: width / 2, y: height - (i + 10) },
-      p3: { x: width / 2, y: height - i * 100 },
-      p4: { x: width + 10, y: height - i * 20 },
+      p1: { x: -10, y: y },
+      p2: { x: width / 1.25, y: y2 },
+      p3: { x: width / 2, y: y3 },
+      p4: { x: x4, y: y4 },
     };
   }
   context.stroke();
 }
 
-for (let i = 0; i < 110; i++) {
-  const step = i / 110;
+const exponent = 5; 
+
+for (let i = 0; i < 50; i++) {
+  const step = Math.pow(i / 50, exponent);
   const startPoint = getBezierPoint(
     step,
     bezierData.p1,
@@ -332,13 +345,13 @@ for (let i = 0; i < 110; i++) {
     bezierData.p3,
     bezierData.p4
   );
-
+  context.lineWidth = 1 - i/75 ;
   context.beginPath();
   context.moveTo(startPoint.x, startPoint.y);
   context.bezierCurveTo(
-    startPoint.x * Math.random() * 30,
+    startPoint.x * i,
     startPoint.y * i,
-    startPoint.x,
+    startPoint.x * i,
     startPoint.y * i,
     i * 100,
     height + 10
