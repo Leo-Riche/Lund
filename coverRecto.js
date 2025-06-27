@@ -31,31 +31,31 @@ function drawBackgroundAndStars() {
   }
 
   // Génération des étoiles filantes (non animées)
-  const shootingStarCount = 7;
-  for (let i = 0; i < shootingStarCount; i++) {
-    const startX = Math.random() * width * 0.8 + width * 0.1;
-    const startY = Math.random() * height * 0.3 + height * 0.05;
-    const length = 80 + Math.random() * 60;
-    const angle = (-Math.PI / 4) + (Math.random() - 0.5) * 0.3; // Vers le bas/droite
-    const endX = startX + Math.cos(angle) * length;
-    const endY = startY + Math.sin(angle) * length;
+  // const shootingStarCount = 7;
+  // for (let i = 0; i < shootingStarCount; i++) {
+  //   const startX = Math.random() * width * 0.8 + width * 0.1;
+  //   const startY = Math.random() * height * 0.3 + height * 0.05;
+  //   const length = 80 + Math.random() * 60;
+  //   const angle = (-Math.PI / 4) + (Math.random() - 0.5) * 0.3; // Vers le bas/droite
+  //   const endX = startX + Math.cos(angle) * length;
+  //   const endY = startY + Math.sin(angle) * length;
 
-    // Dégradé pour l'effet de traînée
-    const grad = context.createLinearGradient(startX, startY, endX, endY);
-    grad.addColorStop(0, "rgba(255,255,255,0.85)");
-    grad.addColorStop(0.5, "rgba(255,255,255,0.25)");
-    grad.addColorStop(1, "rgba(255,255,255,0)");
+  //   // Dégradé pour l'effet de traînée
+  //   const grad = context.createLinearGradient(startX, startY, endX, endY);
+  //   grad.addColorStop(0, "rgba(255,255,255,0.85)");
+  //   grad.addColorStop(0.5, "rgba(255,255,255,0.25)");
+  //   grad.addColorStop(1, "rgba(255,255,255,0)");
 
-    context.save();
-    context.globalAlpha = 0.7 + Math.random() * 0.3;
-    context.strokeStyle = grad;
-    context.lineWidth = 2 + Math.random() * 1.5;
-    context.beginPath();
-    context.moveTo(startX, startY);
-    context.lineTo(endX, endY);
-    context.stroke();
-    context.restore();
-  }
+  //   context.save();
+  //   context.globalAlpha = 0.7 + Math.random() * 0.3;
+  //   context.strokeStyle = grad;
+  //   context.lineWidth = 2 + Math.random() * 1.5;
+  //   context.beginPath();
+  //   context.moveTo(startX, startY);
+  //   context.lineTo(endX, endY);
+  //   context.stroke();
+  //   context.restore();
+  // }
 
   context.globalAlpha = 1;
 }
@@ -286,8 +286,6 @@ function drawRecklessText() {
   });
 }
 
-drawBackgroundAndStars();
-
 const minSizeInitial = Math.min(width, height) * 0.032;
 const maxSizeInitial = Math.min(width, height) * 0.052;
 drawDaisiesBatch(minSizeInitial, maxSizeInitial);
@@ -349,3 +347,60 @@ for (let i = 0; i < 110; i++) {
 }
 
 drawRecklessText();
+
+const backgroundImage = new Image();
+backgroundImage.src = canvas.toDataURL();
+
+let shootingStar = {
+  x: width * 0.8,
+  y: height * 0.1,
+  length: 100,
+  angle: -Math.PI / 4,
+  progress: 0,
+  speed: 0.02
+};
+
+function drawShootingStar(ctx, star) {
+  const startX = star.x + Math.cos(star.angle) * star.length * star.progress;
+  const startY = star.y + Math.sin(star.angle) * star.length * star.progress;
+  const endX = startX + Math.cos(star.angle) * star.length * 0.3;
+  const endY = startY + Math.sin(star.angle) * star.length * 0.3;
+
+  const grad = ctx.createLinearGradient(startX, startY, endX, endY);
+  grad.addColorStop(0, "rgba(255,255,255,0.85)");
+  grad.addColorStop(0.5, "rgba(255,255,255,0.25)");
+  grad.addColorStop(1, "rgba(255,255,255,0)");
+
+  ctx.save();
+  ctx.globalAlpha = 0.8;
+  ctx.strokeStyle = grad;
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(startX, startY);
+  ctx.lineTo(endX, endY);
+  ctx.stroke();
+  ctx.restore();
+}
+
+function animate() {
+  context.clearRect(0, 0, width, height);
+
+  context.drawImage(backgroundImage, 0, 0, width, height);
+  
+  drawShootingStar(context, shootingStar);
+
+  shootingStar.progress += shootingStar.speed;
+  if (shootingStar.progress > 1) {
+    shootingStar.progress = 0;
+    shootingStar.x = Math.random() * width * 0.8 + width * 0.1;
+    shootingStar.y = Math.random() * height * 0.3 + height * 0.05;
+    shootingStar.length = 80 + Math.random() * 60;
+    shootingStar.angle = (-Math.PI / 4) + (Math.random() - 0.5) * 0.3;
+  }
+
+  requestAnimationFrame(animate);
+}
+
+backgroundImage.onload = () => {
+  animate();
+};
