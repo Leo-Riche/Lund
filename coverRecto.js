@@ -336,10 +336,6 @@ for (let i = 2; i < 50; i++) {
 context.restore();
 
 
-const smallMinSize = Math.min(width, height) * 0.018;
-const smallMaxSize = Math.min(width, height) * 0.028;
-drawDaisiesBatch(smallMinSize, smallMaxSize);
-
 const backgroundImage = new Image();
 backgroundImage.src = canvas.toDataURL();
 
