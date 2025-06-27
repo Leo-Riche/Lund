@@ -193,9 +193,9 @@ function drawDaisyStem(
  * @param {number} maxSize - Taille maximale des marguerites.
  */
 function drawDaisiesBatch(minSize, maxSize) {
-  const daisyCount = 9;
+  const daisyCount = 8;
   // On commence à partir du tiers gauche du canvas
-  const leftStart = width / 8;
+  const leftStart = width / 4.5;
   const margin = width * 0.07;
   const availableWidth = width - leftStart - margin;
   const baseY = height * 0.94;
