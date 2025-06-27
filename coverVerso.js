@@ -273,7 +273,7 @@ function drawShootingStar(ctx, star) {
   ctx.restore();
 }
 
-function animate() {
+function animateVerso() {
   contextCover.clearRect(0, 0, widthCover, heightCover);
   
   contextCover.drawImage(backgroundImageVerso, 0, 0, widthCover, heightCover);
@@ -291,9 +291,9 @@ function animate() {
 
   drawTexts(["Lost and Hollow", "Broken", "F*ck Love", "Skin & Bones", "Reckless", "Low", "Issues"]);
 
-  requestAnimationFrame(animate);
+  requestAnimationFrame(animateVerso);
 }
 
 backgroundImageVerso.onload = () => {
-  animate();
+  animateVerso();
 };
