@@ -11,6 +11,7 @@ body {
   letter-spacing: 0.01em;
   position: relative;
   box-shadow: 0 0 0 100vmax rgba(20,20,25,0.18) inset;
+  overflow-x: hidden;
 }
 
 body::before {
