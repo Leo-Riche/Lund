@@ -166,7 +166,7 @@ function drawDaisyStem(
  * @param {number} maxSize - Taille maximale des marguerites.
  */
 function drawDaisiesBatch(minSize, maxSize) {
-  const daisyCount = 7;
+  const daisyCount = 12;
   const margin = widthCover * 0.07;
   const availableWidth = widthCover - 2 * margin;
   const baseY = heightCover * 0.94;
@@ -199,7 +199,7 @@ function drawDaisiesBatch(minSize, maxSize) {
   }
 }
 
-drawDaisiesBatch(30, 50);
+drawDaisiesBatch(20, 30);
 
 function drawTexts(texts) {
   document.fonts.ready.then(() => {
