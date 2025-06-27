@@ -359,8 +359,6 @@ for (let i = 0; i < 50; i++) {
   context.stroke();
 }
 
-drawRecklessText();
-
 const backgroundImage = new Image();
 backgroundImage.src = canvas.toDataURL();
 
@@ -399,12 +397,14 @@ function animate() {
   context.clearRect(0, 0, width, height);
 
   context.drawImage(backgroundImage, 0, 0, width, height);
+
+  drawRecklessText();
   
   drawShootingStar(context, shootingStar);
 
-  shootingStar.progress += shootingStar.speed;
-  if (shootingStar.progress > 1) {
-    shootingStar.progress = 0;
+  shootingStar.progress -= shootingStar.speed;
+  if (shootingStar.progress < 0) {
+    shootingStar.progress = 1;
     shootingStar.x = Math.random() * width * 0.8 + width * 0.1;
     shootingStar.y = Math.random() * height * 0.3 + height * 0.05;
     shootingStar.length = 80 + Math.random() * 60;
