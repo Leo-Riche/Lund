@@ -193,20 +193,18 @@ function drawDaisyStem(
  * @param {number} maxSize - Taille maximale des marguerites.
  */
 function drawDaisiesBatch(minSize, maxSize) {
-  const daisyCount = 7;
+  const daisyCount = 8;
   // On commence à partir du tiers gauche du canvas
-  const leftStart = width / 3;
+  const leftStart = width / 4.5;
   const margin = width * 0.07;
   const availableWidth = width - leftStart - margin;
   const baseY = height * 0.94;
 
-  // Génère des espacements aléatoires
+  // Génère des espacements égaux
   let positions = [];
-  let total = 0;
+  let total = daisyCount;
   for (let i = 0; i < daisyCount; i++) {
-    const space = 1 + Math.random();
-    positions.push(space);
-    total += space;
+    positions.push(1);
   }
   // Calcule la position x de chaque fleur en fonction des espacements
   let daisyXs = [];
@@ -261,7 +259,7 @@ function getBezierPoint(t, p0, p1, p2, p3) {
 }
 
 /**
- * Dessine le mot "Reckless" en haut du canvas avec la police Fraktur.
+ * Dessine le texte "Lost and Hollow" en haut du canvas avec la police Fraktur.
  */
 function drawRecklessText() {
   document.fonts.ready.then(() => {
